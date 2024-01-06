@@ -1,23 +1,50 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Selenium.Support" Version="4.16.2" />
-    <PackageReference Include="Selenium.WebDriver" Version="4.16.2" />
-  </ItemGroup>
+	<PropertyGroup>
+		<Title>Twileloop.Spider</Title>
+		<Product>Twileloop.Spider</Product>
+		<Authors>Twileloop, Sangeeth Nandakumar</Authors>
+		<Company>Twileloop</Company>
+		<Copyright>Twileloop</Copyright>
+		<Description>A simplified wrapper over Selenium web driver to easily do web scrapping</Description>
+		<PackageProjectUrl>https://packages.twileloop.com/twileloop.spider</PackageProjectUrl>
+		<PackageIcon>logo.png</PackageIcon>
+		<RepositoryUrl>https://github.com/sangeethnandakumar/Twileloop.Spider</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>selenium, web scrapping, data extraction, HTML, chrome, automation</PackageTags>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Update="BridgeFiles\jquery.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="BridgeFiles\xPath.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Selenium.Support" Version="4.16.2" />
+		<PackageReference Include="Selenium.WebDriver" Version="4.16.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="BridgeFiles\jquery.js">
+			<Pack>True</Pack>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		
+		<None Update="BridgeFiles\xPath.js">
+			<Pack>True</Pack>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		
+		<None Include="..\Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		
+		<None Update="logo.png">
+			<Pack>true</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
 </Project>
