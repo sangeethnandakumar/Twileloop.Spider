@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace Twileloop.Spider
 {
@@ -96,26 +97,30 @@ namespace Twileloop.Spider
             je.ExecuteScript("arguments[0].scrollIntoView(false);", Element(xPath));
         }
 
-        public string ExecuteJavaScript(string script)
+        public T ExecuteJavaScript<T>(string script)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)_browser;
             var result = js.ExecuteScript(script);
 
-            // Check if the result is not null
             if (result != null)
             {
-                // If it's a string, return it directly
-                if (result is string)
+                // If the result is already of the desired type, return it directly
+                if (result is T typedResult)
                 {
-                    return (string)result;
+                    return typedResult;
                 }
 
-                // Convert non-string results to string if needed
-                return result.ToString();
+                // If the result is a string, deserialize it
+                if (result is string resultString)
+                {
+                    return JsonSerializer.Deserialize<T>(resultString);
+                }
+
+                // Convert non-string results to string if needed and then deserialize
+                return JsonSerializer.Deserialize<T>(result.ToString());
             }
 
-            // Return null if the result is null
-            return null;
+            return default; // Return default value if the result is null
         }
 
 
@@ -152,7 +157,7 @@ namespace Twileloop.Spider
 
         public string? GetOuterHTMLFromJQuerySelector(string jQuerySelector)
         {
-            return ExecuteJavaScript($"return $('{jQuerySelector}').prop('outerHTML');");
+            return ExecuteJavaScript<string>($"return $('{jQuerySelector}').prop('outerHTML');");
         }
 
         public void UseJQuery()

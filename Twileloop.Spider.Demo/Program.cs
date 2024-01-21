@@ -8,8 +8,8 @@ using (IBrowser browser = new BrowserBuilder().SetUpChrome(
     browser.UseJQuery();
     browser.UseXPath();
 
-    //To execute and get result of JS 'Always add return'
-    var test = browser.ExecuteJavaScript("return (1+1)");
+    //Code execution
+    CodeExecutions(browser);
 
     browser.Goto("https://libgen.is");
 
@@ -18,6 +18,14 @@ using (IBrowser browser = new BrowserBuilder().SetUpChrome(
     browser.Click("//input[@value='Search!']");
 
     Thread.Sleep(1000);
-
 }
 
+
+static void CodeExecutions(IBrowser browser)
+{
+    // Example 1: Execute JavaScript and get the result as string
+    string resultAsString = browser.ExecuteJavaScript<string>("return 'Sangeeth' + ' ' + 'Nandakumar'");
+
+    // Example 2: Execute JavaScript and get the result as an integer
+    int resultAsInt = browser.ExecuteJavaScript<int>("return 21 + 2");
+}
