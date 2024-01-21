@@ -103,11 +103,11 @@ namespace Twileloop.Spider
             return (string)js.ExecuteScript(script);
         }
 
-        public void InjectJavaScript(string script)
+        public void InjectJavaScript(string scriptContent)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)_browser;
-            var test = js.ExecuteScript(script);
-            js.ExecuteScript(script);
+            var test = js.ExecuteScript(scriptContent);
+            js.ExecuteScript(scriptContent);
         }
 
         public void Type(string xpath, string text)
@@ -124,7 +124,7 @@ namespace Twileloop.Spider
             foreach (var letter in text)
             {
                 element.SendKeys(letter.ToString());
-                Thread.Sleep(rnd.Next(0, 1000));
+                Thread.Sleep(rnd.Next(0, 300));
             }
         }
 

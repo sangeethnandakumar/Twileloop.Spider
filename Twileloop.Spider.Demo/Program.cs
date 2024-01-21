@@ -1,6 +1,9 @@
 ﻿using Twileloop.Spider;
 
-using (IBrowser browser = new BrowserBuilder().SetUpChrome(true))
+using (IBrowser browser = new BrowserBuilder().SetUpChrome(
+    openBrowser: true,
+    incognito: true
+    ))
 {
     browser.UseJQuery();
     browser.UseXPath();
@@ -11,7 +14,7 @@ using (IBrowser browser = new BrowserBuilder().SetUpChrome(true))
 
     browser.Click("//input[@value='Search!']");
 
-    Thread.Sleep(5000);
+    Thread.Sleep(1000);
 
 }
 
