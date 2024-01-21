@@ -15,7 +15,7 @@
 
     public interface IScript
     {
-        string ExecuteJavaScript(string script);
+        string? ExecuteJavaScript(string script);
         void InjectJavaScript(string script);
         void UseJQuery();
         void UseXPath();

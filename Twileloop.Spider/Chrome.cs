@@ -99,9 +99,26 @@ namespace Twileloop.Spider
         public string ExecuteJavaScript(string script)
         {
             IJavaScriptExecutor js = (IJavaScriptExecutor)_browser;
-            var test = js.ExecuteScript(script);
-            return (string)js.ExecuteScript(script);
+            var result = js.ExecuteScript(script);
+
+            // Check if the result is not null
+            if (result != null)
+            {
+                // If it's a string, return it directly
+                if (result is string)
+                {
+                    return (string)result;
+                }
+
+                // Convert non-string results to string if needed
+                return result.ToString();
+            }
+
+            // Return null if the result is null
+            return null;
         }
+
+
 
         public void InjectJavaScript(string scriptContent)
         {
@@ -133,7 +150,7 @@ namespace Twileloop.Spider
             return _browser.PageSource;
         }
 
-        public string GetOuterHTMLFromJQuerySelector(string jQuerySelector)
+        public string? GetOuterHTMLFromJQuerySelector(string jQuerySelector)
         {
             return ExecuteJavaScript($"return $('{jQuerySelector}').prop('outerHTML');");
         }
