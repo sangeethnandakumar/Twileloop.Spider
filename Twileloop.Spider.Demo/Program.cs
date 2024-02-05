@@ -2,7 +2,9 @@
 
 using (IBrowser browser = new BrowserBuilder().SetUpChrome(
     openBrowser: true,
-    incognito: true
+    incognito: true,
+    killAllChromeDrivers: true,
+    driver: "http://twileloop.com:4444"
     ))
 {
     browser.UseJQuery();

@@ -8,9 +8,9 @@ namespace Twileloop.Spider
 {
     public class Chrome : IBrowser, IDisposable
     {
-        private readonly ChromeDriver _browser;
+        private readonly IWebDriver _browser;
 
-        internal Chrome(ChromeDriver browser)
+        internal Chrome(IWebDriver browser)
         {
             _browser = browser;
         }

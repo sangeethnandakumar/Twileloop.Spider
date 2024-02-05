@@ -2,30 +2,29 @@
 using WebDriverManager.DriverConfigs.Impl;
 using WebDriverManager;
 using System.Diagnostics;
+using OpenQA.Selenium.Remote;
+using OpenQA.Selenium;
 
 namespace Twileloop.Spider
 {
     public class BrowserBuilder
     {
-        public IBrowser SetUpChrome(bool openBrowser = true, bool incognito = true, bool killAllChromeDrivers = false)
+        public IBrowser SetUpChrome(bool openBrowser = true, bool incognito = true, bool killAllChromeDrivers = false, string driver = null)
         {
             if (killAllChromeDrivers)
             {
-                Console.WriteLine("KILLING ALL CHROME DRIVERS");
-                Console.WriteLine("___________________________________________________________");
                 KillAllChromeDrivers("taskkill", "/F /IM chromedriver.exe /T");
-                Console.WriteLine("___________________________________________________________");
             }
-            return new Chrome(GetChromeDriver(openBrowser, incognito));
+            return new Chrome(GetWebDriver(openBrowser, incognito, driver));
         }
 
-        private ChromeDriver GetChromeDriver(bool openBrowser, bool incognito)
+        private IWebDriver GetWebDriver(bool openBrowser, bool incognito, string driverUrl)
         {
             var options = new ChromeOptions
             {
                 AcceptInsecureCertificates = true,
             };
-            
+
             if (incognito)
             {
                 options.AddArguments("--incognito");
@@ -36,15 +35,26 @@ namespace Twileloop.Spider
                 options.AddArguments("headless");
             }
 
-            var service = ChromeDriverService.CreateDefaultService();
-            service.SuppressInitialDiagnosticInformation = true;
-            service.HideCommandPromptWindow = true;
-            options.AddArgument("--no-sandbox");
+            IWebDriver webDriver;
 
-            new DriverManager().SetUpDriver(new ChromeConfig());
-            var newChrome = new ChromeDriver(service, options);
-            return newChrome;
+            if (string.IsNullOrEmpty(driverUrl))
+            {
+                var service = ChromeDriverService.CreateDefaultService();
+                service.SuppressInitialDiagnosticInformation = true;
+                service.HideCommandPromptWindow = true;
+                options.AddArgument("--no-sandbox");
+
+                new DriverManager().SetUpDriver(new ChromeConfig());
+                webDriver = new ChromeDriver(service, options);
+            }
+            else
+            {
+                webDriver = new RemoteWebDriver(new Uri(driverUrl), options);
+            }
+
+            return webDriver;
         }
+
 
         private void KillAllChromeDrivers(string command, string arguments)
         {
