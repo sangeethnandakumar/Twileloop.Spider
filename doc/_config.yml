@@ -1,0 +1,8 @@
+title: Twileloop.Spider
+description: "Selenium Web Scrapper"
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-slate
+github:
+  zip_url: https://github.com/sangeethnandakumar/Twileloop.Spider/releases
+  tar_url: https://www.nuget.org/packages/Twileloop.Spider
