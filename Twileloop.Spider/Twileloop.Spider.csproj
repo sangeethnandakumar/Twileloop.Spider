@@ -1,29 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net6.0;net7.0;net8.0;net9.0;netstandard2.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
+	<!-- Package Information -->
 	<PropertyGroup>
-		<Title>Twileloop.Spider</Title>
+		<PackageId>Twileloop.Spider</PackageId>
+		<Title>Twileloop.Spider - Simplified Selenium Automation</Title>
 		<Product>Twileloop.Spider</Product>
+		<Version>2.0.0</Version>
 		<Authors>Twileloop, Sangeeth Nandakumar</Authors>
 		<Company>Twileloop</Company>
-		<Copyright>Twileloop</Copyright>
-		<Description>A simplified wrapper over Selenium web driver to easily do web scrapping</Description>
+		<Copyright>© 2024 Twileloop. All rights reserved.</Copyright>
+		<Description>A powerful and simplified wrapper over Selenium WebDriver for easy web automation and scraping. Supports Chrome, Edge, Firefox, and Safari browsers with both local and remote WebDriver configurations.</Description>
 		<PackageProjectUrl>https://packages.twileloop.com/twileloop.spider</PackageProjectUrl>
 		<PackageIcon>logo.png</PackageIcon>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/sangeethnandakumar/Twileloop.Spider</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>selenium, web scrapping, data extraction, HTML, chrome, automation</PackageTags>
+		<PackageTags>selenium;web-scraping;automation;chrome;edge;firefox;data-extraction;html;webdriver;testing</PackageTags>
+		<PackageReleaseNotes>
+			Version 2.0.0:
+			- Multi-browser support (Chrome, Edge, Firefox, Safari)
+			- Enhanced API with fluent interface
+			- Better error handling and logging
+			- Support for both .NET Framework and .NET Core
+			- Remote WebDriver support
+			- Improved performance and stability
+		</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Selenium.Support" Version="4.16.2" />
-		<PackageReference Include="Selenium.WebDriver" Version="4.16.2" />
-		<PackageReference Include="WebDriverManager" Version="2.17.1" />
+		<PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+		<PackageReference Include="Selenium.Support" Version="4.33.0" />
+		<PackageReference Include="Selenium.WebDriver" Version="4.33.0" />
+		<PackageReference Include="WebDriverManager" Version="2.17.5" />
 	</ItemGroup>
 
 	<ItemGroup>
