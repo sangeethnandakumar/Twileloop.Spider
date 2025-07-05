@@ -1,5 +1,6 @@
 ﻿// File: SpiderBuilder.cs (Main Entry Point)
 using Twileloop.Spider.Factories;
+using System.Runtime.Versioning; // Added for SupportedOSPlatform attribute
 
 namespace Twileloop.Spider
 {
@@ -32,6 +33,16 @@ namespace Twileloop.Spider
             return _browserFactory.CreateBrowser(browserType, options);
         }
 
+        /// <summary>
+        /// Lists available Google Chrome user profiles.
+        /// <para>
+        /// IMPORTANT: This method currently relies on default installation paths for Google Chrome on Windows
+        /// (e.g., %LOCALAPPDATA%\Google\Chrome\User Data) and is therefore Windows-specific.
+        /// It may not work correctly on other operating systems or with non-standard Chrome installations.
+        /// </para>
+        /// </summary>
+        /// <returns>A list of profile directory names. Returns a list containing only "Default" if the user data directory is not found or no profiles are detected.</returns>
+        [SupportedOSPlatform("windows")]
         public static List<string> ListChromeProfiles()
         {
             string userDataDir = Path.Combine(

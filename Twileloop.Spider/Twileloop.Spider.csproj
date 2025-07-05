@@ -45,12 +45,12 @@
 	<ItemGroup>
 		<None Update="BridgeFiles\jquery.js">
 			<Pack>True</Pack>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<!-- <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> --> <!-- No longer copying to output -->
 		</None>
 		
 		<None Update="BridgeFiles\xPath.js">
 			<Pack>True</Pack>
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<!-- <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> --> <!-- No longer copying to output -->
 		</None>
 		
 		<None Include="..\Readme.md">
@@ -62,6 +62,11 @@
 			<Pack>true</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="BridgeFiles\jquery.js" />
+		<EmbeddedResource Include="BridgeFiles\xPath.js" />
 	</ItemGroup>
 
 </Project>
