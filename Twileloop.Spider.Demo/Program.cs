@@ -57,11 +57,13 @@ class Program
     {
         Console.WriteLine("Running Advanced Example...");
 
-        // Kill all existing Chrome processes to avoid profile lock
-        foreach (var process in Process.GetProcessesByName("chrome"))
-        {
-            try { process.Kill(); } catch { /* ignore access denied */ }
-        }
+        // The following lines that killed all Chrome processes have been removed
+        // as it's a disruptive and potentially harmful action for users.
+        // Users should manage existing browser processes as needed for their specific environment.
+        // foreach (var process in Process.GetProcessesByName("chrome"))
+        // {
+        //     try { process.Kill(); } catch { /* ignore access denied */ }
+        // }
 
         // List all Chrome profiles
         var chromeProfiles = SpiderBuilder.ListChromeProfiles();

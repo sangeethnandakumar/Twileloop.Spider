@@ -3,6 +3,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
 using System.Text.Json;
+using System.Reflection; // Added for Assembly
+using System.IO; // Added for StreamReader
 
 namespace Twileloop.Spider.Implementations
 {
@@ -211,14 +213,27 @@ namespace Twileloop.Spider.Implementations
 
         public void UseJQuery()
         {
-            var jqueryPath = Path.Combine("BridgeFiles", "jquery.js");
-            if (File.Exists(jqueryPath))
+            try
             {
-                var jqueryScript = File.ReadAllText(jqueryPath);
-                InjectJavaScript(jqueryScript);
+                var assembly = Assembly.GetExecutingAssembly();
+                var resourceName = "Twileloop.Spider.BridgeFiles.jquery.js"; // Adjust if namespace differs
+
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (stream == null)
+                    {
+                        throw new FileNotFoundException($"Embedded resource '{resourceName}' not found.");
+                    }
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string jqueryScript = reader.ReadToEnd();
+                        InjectJavaScript(jqueryScript);
+                    }
+                }
             }
-            else
+            catch (Exception ex) // Catch potential errors during resource loading
             {
+                Console.WriteLine($"Error loading jQuery from embedded resource: {ex.Message}. Falling back to CDN.");
                 // Fallback to CDN
                 InjectJavaScript(@"
                     if (typeof jQuery === 'undefined') {
@@ -232,11 +247,31 @@ namespace Twileloop.Spider.Implementations
 
         public void UseXPath()
         {
-            var xpathPath = Path.Combine("BridgeFiles", "xPath.js");
-            if (File.Exists(xpathPath))
+            try
             {
-                var xpathScript = File.ReadAllText(xpathPath);
-                InjectJavaScript(xpathScript);
+                var assembly = Assembly.GetExecutingAssembly();
+                // Assuming the namespace of Twileloop.Spider project is Twileloop.Spider
+                var resourceName = "Twileloop.Spider.BridgeFiles.xPath.js";
+
+                using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+                {
+                    if (stream == null)
+                    {
+                        // Consider logging this error or throwing a more specific exception
+                        Console.WriteLine($"Warning: Embedded resource '{resourceName}' for XPath helper not found.");
+                        return; // Or throw new FileNotFoundException if xPath.js is critical
+                    }
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        string xpathScript = reader.ReadToEnd();
+                        InjectJavaScript(xpathScript);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error, as failing to inject XPath helper might be significant
+                Console.WriteLine($"Error loading XPath helper from embedded resource: {ex.Message}");
             }
         }
 

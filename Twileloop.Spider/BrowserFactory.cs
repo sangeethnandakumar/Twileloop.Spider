@@ -215,42 +215,51 @@ namespace Twileloop.Spider.Factories
 
         private void KillAllDriverProcesses(BrowserType browserType)
         {
-            var processName = browserType switch
-            {
-                BrowserType.Chrome => "chromedriver",
-                BrowserType.Edge => "msedgedriver",
-                BrowserType.Firefox => "geckodriver",
-                _ => null
-            };
+            //
+            // WARNING: The functionality to kill all driver processes has been disabled by default
+            // due to its potentially disruptive nature of terminating unrelated processes.
+            // If you need to ensure no other drivers are running, please handle this externally
+            // or consider a more targeted approach to manage driver processes.
+            //
+            //var processName = browserType switch
+            //{
+            //    BrowserType.Chrome => "chromedriver",
+            //    BrowserType.Edge => "msedgedriver",
+            //    BrowserType.Firefox => "geckodriver",
+            //    _ => null
+            //};
 
-            if (processName != null)
-            {
-                KillProcesses(processName);
-            }
+            //if (processName != null)
+            //{
+            //    KillProcesses(processName);
+            //}
         }
 
         private void KillProcesses(string processName)
         {
-            try
-            {
-                var processes = Process.GetProcessesByName(processName);
-                foreach (var process in processes)
-                {
-                    try
-                    {
-                        process.Kill();
-                        process.WaitForExit(5000);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Failed to kill process {processName}: {ex.Message}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error killing {processName} processes: {ex.Message}");
-            }
+            //
+            // WARNING: This method is part of the disabled KillAllDriverProcesses functionality.
+            //
+            //try
+            //{
+            //    var processes = Process.GetProcessesByName(processName);
+            //    foreach (var process in processes)
+            //    {
+            //        try
+            //        {
+            //            process.Kill();
+            //            process.WaitForExit(5000);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Console.WriteLine($"Failed to kill process {processName}: {ex.Message}");
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Error killing {processName} processes: {ex.Message}");
+            //}
         }
     }
 }
